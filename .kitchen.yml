@@ -11,4 +11,7 @@ platforms:
 suites:
   - name: default
     run_list: ['airtime::default']
-    attributes:
+    driver:
+     network:
+      - ["forwarded_port", { guest: 80, host: 8001, id: "airtime", auto_correct: true }]
+      - ["forwarded_port", { guest: 8000, host: 8002, id: "icecast", auto_correct: true }]

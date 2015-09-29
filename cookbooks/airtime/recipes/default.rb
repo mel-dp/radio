@@ -18,3 +18,15 @@ package 'pulseaudio' do
 end
 
 package 'airtime'
+
+execute 'sudo locale-gen en_GB.UTF-8'
+execute 'sudo cp /usr/share/zoneinfo/Europe/London /etc/localtime'
+
+template '/etc/default/icecast2' do
+  source 'etc_default_icecast2.erb'
+  mode 00644
+end
+
+service 'icecast2' do
+  action [:enable, :start]
+end
