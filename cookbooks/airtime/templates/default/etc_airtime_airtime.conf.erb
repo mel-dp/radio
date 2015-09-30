@@ -1,0 +1,29 @@
+[database]
+host = <%= node['airtime_db'] %>
+dbname = airtime
+dbuser = airtime
+dbpass = <%= node['airtime_password'] %>
+
+[rabbitmq]
+host = 127.0.0.1
+port = 5672
+user = airtime
+password = 2J9B29G6LIW9UU905IM7
+vhost = /airtime
+
+[general]
+api_key = TTTYNE6DKYZELLSBK6FM
+web_server_user = www-data
+airtime_dir = /usr/share/airtime
+base_url = localhost
+base_port = 80
+base_dir = /
+cache_ahead_hours = 1
+
+[monit]
+monit_user = guest
+monit_password = airtime
+
+[soundcloud]
+connection_retries = 3
+time_between_retries = 60

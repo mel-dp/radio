@@ -54,3 +54,14 @@ template '/var/www/html/index.html' do
   mode 00644
   notifies :restart, 'service[apache2]', :delayed
 end
+
+execute 'airtime-update-db-settings' do
+	command 'airtime-update-db-settings'
+	action :nothing
+end
+
+template '/etc/airtime/airtime.conf' do
+  source 'etc_airtime_airtime.conf.erb'
+  mode 00644
+  notifies :run, 'execute[airtime-update-db-settings]', :immediately
+end
