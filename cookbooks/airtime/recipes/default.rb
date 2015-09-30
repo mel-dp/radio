@@ -9,8 +9,6 @@ package 'sourcefabric-keyring' do
 end
 execute 'sudo apt-get update'
 
-package 'postgresql'
-
 package 'icecast2'
 
 package 'pulseaudio' do
@@ -29,4 +27,30 @@ end
 
 service 'icecast2' do
   action [:enable, :start]
+end
+
+service 'postgresql' do
+  action [:stop]
+end
+
+service 'apache2' do
+  action [:enable, :start]
+end
+
+template '/etc/apache2/sites-available/000-default.conf' do
+  source 'etc_apache2_sites-available_000-default.conf.erb'
+  mode 00644
+  notifies :restart, 'service[apache2]', :delayed
+end
+
+template '/etc/apache2/sites-available/airtime-vhost.conf' do
+  source 'etc_apache2_sites-available_airtime-vhost.conf.erb'
+  mode 00644
+  notifies :restart, 'service[apache2]', :delayed
+end
+
+template '/var/www/html/index.html' do
+  source 'var_www_html_index.html.erb'
+  mode 00644
+  notifies :restart, 'service[apache2]', :delayed
 end
